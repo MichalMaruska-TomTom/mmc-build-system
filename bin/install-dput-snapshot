@@ -161,3 +161,4 @@ else
     # cecho gray:
     echo "debi --debs-dir $BUILD_AREA"
 fi
+ssh -Y -A michal@www.ruska.it "reprepro/process-incoming; ls -l reprepro/incoming/"
