@@ -230,7 +230,7 @@ export DPUT_TARGETS=${MBS_SNAP_TARGETS-local}
 set -x
 git-buildpackage \
     --git-ignore-new $GBP_OPTIONS \
-    --git-prebuild=pre-build-hook \
+    --git-postexport=pre-build-hook \
     --git-cleaner=/bin/true \
     --git-dist=$DISTRIBUTION \
     --git-arch=$(dpkg-architecture -qDEB_BUILD_ARCH) \
