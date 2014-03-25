@@ -1,4 +1,4 @@
-mmc-build-system (2.18) release; urgency=low
+mmc-build-system (2.19) release; urgency=low
 
   * inform when redoing a release and making git Tag
   * format .... TABS leaked in!
