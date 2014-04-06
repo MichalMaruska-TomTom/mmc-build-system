@@ -117,6 +117,7 @@ def write_tree(repo, options):
     @return: the sha1 of the tree
     @rtype: C{str}
     """
+    gbp.log.info("write_tree %s" % options.export)
     if options.export_dir:
         if options.export == index_name:
             tree = repo.write_tree()
@@ -517,6 +518,8 @@ def main(argv):
 
         tree = write_tree(repo, options)
         source = source_vfs(repo, options, tree)
+
+        gbp.log.info("VERSION IS %s" % source.changelog.noepoch);
         if not options.tag_only:
             output_dir = prepare_output_dir(options.export_dir)
             tarball_dir = options.tarball_dir or output_dir
@@ -544,7 +547,13 @@ def main(argv):
                                  extra_env={'GBP_GIT_DIR': repo.git_dir,
                                             'GBP_TMP_DIR': tmp_dir})(dir=tmp_dir)
 
+                # Override:
                 source = DebianSource(tmp_dir)
+                # source.is_native() # check early if this works
+                # source = source_vfs(repo, options, tree) # True
+
+
+
                 major = (source.changelog.debian_version if source.is_native()
                          else source.changelog.upstream_version)
                 export_dir = os.path.join(output_dir, "%s-%s" % (source.sourcepkg, major))
