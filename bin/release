@@ -125,6 +125,10 @@ while (( $# > 0 )) do
               USER_DISTRIBUTION="$1"
               # DCH_OPTIONS+=("--git-dist=$USER_DISTRIBUTION")
               GBP_OPTIONS+=("--git-dist=$USER_DISTRIBUTION")
+
+              # copied from pbuilder:
+              pre_build_hook+=(-s)
+              GBP_OPTIONS+=("--git-builder=debspawn build --only binary --buildflags=-b $USER_DISTRIBUTION")
               ;;
           --tag | -T )
               shift
@@ -155,7 +159,8 @@ while (( $# > 0 )) do
               # GBP_OPTIONS+=("--git-builder=git-pbuilder")
               # skip build-dep by gbp:
               pre_build_hook+=(-s)
-              GBP_OPTIONS+=("--git-builder=debspawn.py build  --only binary --buildflags=-b focal")
+              ##
+              GBP_OPTIONS+=("--git-builder=debspawn build --only binary --buildflags=-b focal")
               ;;
           --auto | -o)
               # non-interactive/offline
